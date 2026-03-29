@@ -10,6 +10,22 @@ const cli: CAC = cac("vch")
 
 const { version } = pkgJson
 
+async function checkNodeVersions() {
+  const versions = await getNodeVersions()
+  logger.success(`Node.js Current Version: ${versions.current}\nLatest Version: ${versions.latest}\nLatest LTS: ${versions.latestLTS}`)
+
+  if (compareVersions(versions.current, versions.latestLTS) === -1) {
+    logger.warn(`You are using an outdated version of Node.js: ${versions.current}. Latest LTS version: ${versions.latestLTS}`)
+  } else {
+    const isLatest = compareVersions(versions.current, versions.latest) === 0
+    if (isLatest) {
+      logger.success(`You are using the latest version of Node.js: ${versions.current}`)
+    } else {
+      logger.success(`You are using the version of Node.js: ${versions.current}`)
+    }
+  }
+}
+
 cli.command("check", "check for versions.")
   .option("--name, -n <name>", "check for versions of a specific tool.")
   .action(async (options) => {
@@ -27,14 +43,7 @@ cli.command("check", "check for versions.")
 
     switch(name) {
       case SupportedTools.Node:
-        const versions = await getNodeVersions()
-        logger.success(`Node.js Current Version: ${versions.current}\nLatest Version: ${versions.latest}\nLatest LTS: ${versions.latestLTS}`)
-
-        if (compareVersions(versions.current, versions.latestLTS) === -1) {
-          logger.warn(`You are using an outdated version of Node.js. Latest LTS version: ${versions.latestLTS}`)
-        } else {
-          logger.success(`You are using the latest LTS version of Node.js: ${versions.latestLTS}`)
-        }
+        await checkNodeVersions()
         break
       default:
         break
