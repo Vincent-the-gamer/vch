@@ -24,18 +24,21 @@ async function generateLogs(name: SupportedTools, versions: Versions) {
     logger.success(`[${nameMap[name]}] Current Version: ${versions.current}\nLatest Version: ${versions.latest}`)
   }
 
-  if (versions.latestLTS && compareVersions(versions.current, versions.latestLTS) === -1) {
+  const isLatest = compareVersions(versions.current, versions.latest) === 0
+  const isLTS = versions.latestLTS && compareVersions(versions.current, versions.latestLTS) === 0
+  const lessThanLatest = compareVersions(versions.current, versions.latest) === -1
+  const lessThanLTS = versions.latestLTS && compareVersions(versions.current, versions.latestLTS) === -1
+
+  if (isLTS) {
+    logger.success(`You are using the latest LTS version of ${nameMap[name]}: ${versions.current}`)
+  } else if (isLatest) {
+    logger.success(`You are using the latest version of ${nameMap[name]}: ${versions.current}`)
+  } else if (lessThanLTS) {
     logger.warn(`You are using an outdated version of ${nameMap[name]}: ${versions.current}. Latest LTS version: ${versions.latestLTS}`)
+  } else if (!versions.latestLTS && lessThanLatest) {
+    logger.warn(`You are using an outdated version of ${nameMap[name]}: ${versions.current}. Latest version: ${versions.latest}`)
   } else {
-    const isLatest = compareVersions(versions.current, versions.latest) === 0
-    const isLTS = versions.latestLTS && compareVersions(versions.current, versions.latestLTS) === 0
-    if (isLTS) {
-      logger.success(`You are using the latest LTS version of ${nameMap[name]}: ${versions.current}`)
-    } else if (isLatest) {
-      logger.success(`You are using the latest version of ${nameMap[name]}: ${versions.current}`)
-    } else {
-      logger.success(`You are using the version of ${nameMap[name]}: ${versions.current}`)
-    }
+    logger.success(`You are using the version of ${nameMap[name]}: ${versions.current}`)
   }
 
   logger.log("\n")
