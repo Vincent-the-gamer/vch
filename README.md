@@ -4,8 +4,6 @@ verche: ***Ver***sion ***Che***cker
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![bundle][bundle-src]][bundle-href]
-[![JSDocs][jsdocs-src]][jsdocs-href]
 [![License][license-src]][license-href]
 
 Quickly check versions of your toolchains.
@@ -65,9 +63,5 @@ const rustVersions = await getRustVersions()
 [npm-version-href]: https://npmjs.com/package/verche
 [npm-downloads-src]: https://img.shields.io/npm/dm/verche?style=flat&colorA=080f12&colorB=1fa669
 [npm-downloads-href]: https://npmjs.com/package/verche
-[bundle-src]: https://img.shields.io/bundlephobia/minzip/verche?style=flat&colorA=080f12&colorB=1fa669&label=minzip
-[bundle-href]: https://bundlephobia.com/result?p=verche
 [license-src]: https://img.shields.io/github/license/Vincent-the-gamer/verche.svg?style=flat&colorA=080f12&colorB=1fa669
 [license-href]: https://github.com/Vincent-the-gamer/verche/blob/main/LICENSE
-[jsdocs-src]: https://img.shields.io/badge/jsdocs-reference-080f12?style=flat&colorA=080f12&colorB=1fa669
-[jsdocs-href]: https://www.jsdocs.io/package/verche
