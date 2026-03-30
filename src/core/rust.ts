@@ -3,7 +3,6 @@ import { exec } from "child_process";
 import { Versions } from "../types";
 import axios from "../utils/axios";
 import { logger } from "../utils/logger";
-import { AxiosProxyConfig } from "axios";
 
 async function getCurrentRustVersion(): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -22,7 +21,7 @@ async function getCurrentRustVersion(): Promise<string> {
 }
 
 export async function getRustVersions(): Promise<Versions | null> {
-    logger.info("For Rust, vch is checking cargo version.")
+    logger.info("For Rust, verch is checking cargo version.")
     const currentVersion = await getCurrentRustVersion().catch(err => {
       logger.error(err)
       return null

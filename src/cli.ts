@@ -7,7 +7,7 @@ import { getNodeVersions, getRustVersions } from "./core";
 import { compareVersions } from "./utils/compare";
 import { getGitVersions } from "./core/git";
 
-const cli: CAC = cac("vch")
+const cli: CAC = cac("verch")
 
 const { version } = pkgJson
 

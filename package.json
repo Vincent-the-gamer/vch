@@ -1,5 +1,5 @@
 {
-  "name": "vch",
+  "name": "verch",
   "version": "0.1.0",
   "type": "module",
   "description": "Quickly check versions of your toolchains.",
@@ -19,7 +19,7 @@
     }
   },
   "bin": {
-    "vch": "bin/vch.js"
+    "verch": "bin/verch.js"
   },
   "typesVersions": {
     "*": {
@@ -35,13 +35,13 @@
     "dep": "taze major -I"
   },
   "license": "MIT",
-  "homepage": "https://github.com/Vincent-the-gamer/vch#readme",
+  "homepage": "https://github.com/Vincent-the-gamer/verch#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vincent-the-gamer/vch.git"
+    "url": "git+https://github.com/Vincent-the-gamer/verch.git"
   },
   "bugs": {
-    "url": "https://github.com/Vincent-the-gamer/vch/issues"
+    "url": "https://github.com/Vincent-the-gamer/verch/issues"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.com",
