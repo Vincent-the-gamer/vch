@@ -1,11 +1,11 @@
-export interface NodeVersions {
+export interface Versions {
   current: string
   latest: string
-  latestLts: string
+  latestLTS?: string
 }
 
 export enum SupportedTools {
   Node = 'node',
-  Brew = 'brew',
-  Cargo = 'cargo'
+  Git = 'git',
+  Rust = 'rust'
 }

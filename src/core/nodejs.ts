@@ -1,13 +1,18 @@
+import { Versions } from "../types";
 import axios from "../utils/axios";
-import { load } from 'cheerio';
+import { load } from 'cheerio/slim';
 
-export async function getNodeVersions(): NodeVersions {
+export async function getNodeVersions(): Promise<Versions> {
+  const currentVersion = process.version;
+
   const { data } = await axios.get('https://nodejs.org/zh-cn');
   const $ = load(data);
   const releaseLinks = $('a[href*="release"]');
 
-  const versions: NodeVersions = {
-    current: process.version,
+  const versions: Versions = {
+    current: currentVersion,
+    latest: '',
+    latestLTS: '',
   };
 
   releaseLinks.each((i, el) => {
