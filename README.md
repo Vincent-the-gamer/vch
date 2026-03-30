@@ -35,6 +35,8 @@ npx verche check
 npx verche check -n rust
 ```
 
+https://github.com/user-attachments/assets/72e30149-125e-4634-8e54-cdf79bb3bca4
+
 ### Use as a library
 
 You can also use it as a library:
