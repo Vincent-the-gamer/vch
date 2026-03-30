@@ -10,9 +10,6 @@ vch: ***V***ersion ***Ch***ecker
 
 Quickly check versions of your toolchains.
 
-> [!WARNING]
-> Under construction.
-
 ## Why vch?
 
 I think I'm a little obsessive-compulsive about keeping my dev toolchains newest(or at latest LTS version), like node, uv, git and etc. I'm always checking versions from the official sites of them.
