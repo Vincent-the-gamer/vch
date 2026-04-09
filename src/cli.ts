@@ -3,9 +3,8 @@ import pkgJson from '../package.json'
 import restoreCursor from 'restore-cursor'
 import { logger } from "./utils/logger";
 import { SupportedTools, Versions } from "./types";
-import { getNodeVersions, getRustVersions, getUvVersions } from "./core";
+import { getNodeVersions, getRustVersions, getUvVersions, getGitVersions } from "./core";
 import { compareVersions } from "./utils/compare";
-import { getGitVersions } from "./core/git";
 
 const cli: CAC = cac("verche")
 
