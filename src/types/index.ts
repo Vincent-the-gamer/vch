@@ -9,4 +9,5 @@ export enum SupportedTools {
   Git = 'git',
   Rust = 'rust',
   UV = 'uv',
+  Brew = 'brew'
 }

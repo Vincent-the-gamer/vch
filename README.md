@@ -17,9 +17,9 @@ So, why not to check them together?
 ## Usage
 
 > [!IMPORTANT]
-> Currently support: node, rust, git, uv.
+> Currently support: node, rust, git, uv, brew.
 >
-> For astral-sh/uv, verche check the github release latest version, if you have connection issue, use proxy.
+> If you have connection issue, use proxy.
 
 No need to install, run it with npx.
 

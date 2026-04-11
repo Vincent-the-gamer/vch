@@ -3,25 +3,19 @@ import pkgJson from '../package.json'
 import restoreCursor from 'restore-cursor'
 import { logger } from "./utils/logger";
 import { SupportedTools, Versions } from "./types";
-import { getNodeVersions, getRustVersions, getUvVersions, getGitVersions } from "./core";
+import { getNodeVersions, getRustVersions, getUvVersions, getGitVersions, getBrewVersions } from "./core";
 import { compareVersions } from "./utils/compare";
 
 const cli: CAC = cac("verche")
 
 const { version } = pkgJson
 
-const nameMap: Record<SupportedTools, string> = {
-  node: "Node.js",
-  rust: "Rust",
-  git: "Git",
-  uv: "uv"
-}
 
-async function generateLogs(name: SupportedTools, versions: Versions) {
+async function generateLogs(tool: SupportedTools, versions: Versions) {
   if (versions.latestLTS) {
-    logger.success(`[${nameMap[name]}] Current Version: ${versions.current}\nLatest Version: ${versions.latest}\nLatest LTS: ${versions.latestLTS}`)
+    logger.success(`[${tool}] Current Version: ${versions.current}\nLatest Version: ${versions.latest}\nLatest LTS: ${versions.latestLTS}`)
   } else {
-    logger.success(`[${nameMap[name]}] Current Version: ${versions.current}\nLatest Version: ${versions.latest}`)
+    logger.success(`[${tool}] Current Version: ${versions.current}\nLatest Version: ${versions.latest}`)
   }
 
   const isLatest = compareVersions(versions.current, versions.latest) === 0
@@ -30,15 +24,15 @@ async function generateLogs(name: SupportedTools, versions: Versions) {
   const lessThanLTS = versions.latestLTS && compareVersions(versions.current, versions.latestLTS) === -1
 
   if (isLTS) {
-    logger.success(`You are using the latest LTS version of ${nameMap[name]}: ${versions.current}`)
+    logger.success(`You are using the latest LTS version of ${tool}: ${versions.current}`)
   } else if (isLatest) {
-    logger.success(`You are using the latest version of ${nameMap[name]}: ${versions.current}`)
+    logger.success(`You are using the latest version of ${tool}: ${versions.current}`)
   } else if (lessThanLTS) {
-    logger.warn(`You are using an outdated version of ${nameMap[name]}: ${versions.current}. Latest LTS version: ${versions.latestLTS}`)
+    logger.warn(`You are using an outdated version of ${tool}: ${versions.current}. Latest LTS version: ${versions.latestLTS}`)
   } else if (!versions.latestLTS && lessThanLatest) {
-    logger.warn(`You are using an outdated version of ${nameMap[name]}: ${versions.current}. Latest version: ${versions.latest}`)
+    logger.warn(`You are using an outdated version of ${tool}: ${versions.current}. Latest version: ${versions.latest}`)
   } else {
-    logger.success(`You are using the version of ${nameMap[name]}: ${versions.current}`)
+    logger.success(`You are using the version of ${tool}: ${versions.current}`)
   }
 
   logger.log("\n")
@@ -80,6 +74,15 @@ async function checkUvVersions() {
   }
 }
 
+async function checkBrewVersions() {
+  const versions = await getBrewVersions()
+  if (versions) {
+    await generateLogs(SupportedTools.Brew, versions)
+  } else {
+    logger.warn("uv version checked failed, skipping.")
+  }
+}
+
 async function checkSpecificTool(name: SupportedTools) {
   if(!Object.values(SupportedTools).includes(name)) {
     logger.error(`Unsupported tool: ${name}`)
@@ -98,6 +101,9 @@ async function checkSpecificTool(name: SupportedTools) {
       break
     case SupportedTools.UV:
       await checkUvVersions()
+      break
+    case SupportedTools.Brew:
+      await checkBrewVersions()
       break
     default:
       logger.error(`Not matched: ${name}`)
